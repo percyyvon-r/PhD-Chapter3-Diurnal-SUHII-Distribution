@@ -1,0 +1,150 @@
+# ===============================
+# 3. Ensure gridcode is integer
+# ===============================
+lst_suhi_zonal_built_up['gridcode'] = (
+    lst_suhi_zonal_built_up['gridcode']
+    .astype(float)
+    .astype(int)
+)
+
+# Clean LGA names (avoid merge issues)
+lst_suhi_zonal_built_up['lga'] = lst_suhi_zonal_built_up['lga'].str.strip()
+
+# ===============================
+# 4. Filter LCZ 3, 6, 8 only
+# ===============================
+lcz_order = [3, 6, 8]
+
+lst_suhi_zonal_built_up = lst_suhi_zonal_built_up[
+    lst_suhi_zonal_built_up['gridcode'].isin(lcz_order)
+].copy()
+
+# Set categorical order
+lst_suhi_zonal_built_up['gridcode'] = pd.Categorical(
+    lst_suhi_zonal_built_up['gridcode'],
+    categories=lcz_order,
+    ordered=True
+)
+
+# ===============================
+# 5. Create full grid (LGA x LCZ)
+# ===============================
+full_grid = pd.MultiIndex.from_product(
+    [lst_suhi_zonal_built_up['lga'].unique(), lcz_order],
+    names=['lga', 'gridcode']
+).to_frame(index=False)
+
+# ===============================
+# 6. Prepare day and night datasets
+# ===============================
+df_day = lst_suhi_zonal_built_up[['lga', 'gridcode', 'day_suhi']].rename(columns={'day_suhi': 'value'}).copy()
+df_day['period'] = 'Daytime'
+
+df_night = lst_suhi_zonal_built_up[['lga', 'gridcode', 'night_suhi']].rename(columns={'night_suhi': 'value'}).copy()
+df_night['period'] = 'Nighttime'
+
+# ===============================
+# 7. Merge with full grid
+# ===============================
+df_day = pd.merge(full_grid, df_day, on=['lga', 'gridcode'], how='left')
+df_night = pd.merge(full_grid, df_night, on=['lga', 'gridcode'], how='left')
+
+# Clean invalid values
+df_day['value'] = df_day['value'].replace([np.inf, -np.inf], np.nan)
+df_night['value'] = df_night['value'].replace([np.inf, -np.inf], np.nan)
+
+# ===============================
+# 8. Aggregate mean SUHII
+# ===============================
+df_day_mean = df_day.groupby(['lga', 'gridcode'], as_index=False)['value'].mean()
+df_night_mean = df_night.groupby(['lga', 'gridcode'], as_index=False)['value'].mean()
+
+# ===============================
+# 9. Plot settings
+# ===============================
+vmin, vmax = 0, 4
+
+# ===============================
+# 10. Heatmap function
+# ===============================
+def make_heatmap(data, title_label, show_yticks=True, filename=None):
+
+    pivot = data.pivot_table(
+        index='lga',
+        columns='gridcode',
+        values='value',
+        aggfunc='mean'
+    )
+
+    # Enforce LCZ order and reverse LGA order
+    pivot = pivot.reindex(columns=lcz_order)
+    pivot = pivot.reindex(index=sorted(pivot.index, reverse=True))
+
+    # Debug check
+    if pivot.isna().all().all():
+        print(f"⚠️ WARNING: {title_label} heatmap is empty (all values are NaN)")
+        print(pivot)
+
+    # Plot
+    plt.figure(figsize=(8, max(6, len(pivot)*0.5)))
+
+    sns.heatmap(
+        pivot,
+        annot=True,
+        fmt=".2f",
+        cmap="RdBu_r",
+        center=2,
+        vmin=vmin,
+        vmax=vmax,
+        mask=pivot.isna(),
+        cbar_kws={'label': 'SUHII (°C)'},
+        linewidths=0.5,
+        linecolor='white'
+    )
+
+    plt.title(title_label, fontsize=20, fontweight='bold', pad=10)
+    plt.xlabel('LCZ', fontsize=16, fontweight='bold')
+
+    if show_yticks:
+        plt.ylabel('LGA', fontsize=16, fontweight='bold')
+        plt.yticks(rotation=0, fontsize=12)
+    else:
+        plt.ylabel('')
+        plt.yticks([])
+
+    plt.xticks(rotation=0, fontsize=12)
+    plt.tight_layout()
+
+    # Save figure
+    if filename:
+        plt.savefig(filename, dpi=300, bbox_inches="tight")
+
+    # Show figure in Jupyter
+    plt.show()
+    plt.close()
+
+
+# ===============================
+# 11. Create and save/show plots
+# ===============================
+make_heatmap(
+    df_day_mean,
+    title_label="Daytime",
+    show_yticks=True,
+    filename="C:/Users/percy/Documents/studies/visual_studio_code/PhD-chapter3-SUHII/outputs/figures/daytime_lga_suhi_mean.png"
+)
+
+make_heatmap(
+    df_night_mean,
+    title_label="Nighttime",
+    show_yticks=False,
+    filename="C:/Users/percy/Documents/studies/visual_studio_code/PhD-chapter3-SUHII/outputs/figures/nighttime_lga_suhi_mean.png"
+)
+
+# ===============================
+# 12. Debug checks
+# ===============================
+print("Data shape after filtering:", lst_suhi_zonal_built_up.shape)
+print("Unique LCZs:", lst_suhi_zonal_built_up['gridcode'].unique())
+print("Day mean shape:", df_day_mean.shape)
+print("Night mean shape:", df_night_mean.shape)

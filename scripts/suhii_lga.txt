@@ -1,0 +1,114 @@
+# 1. Ensure gridcode is integer
+lst_suhi_zonal_built_up['gridcode'] = (
+    lst_suhi_zonal_built_up['gridcode']
+    .astype(float)
+    .astype(int)
+)
+
+# Clean LGA names
+lst_suhi_zonal_built_up['lga'] = lst_suhi_zonal_built_up['lga'].str.strip()
+
+# 2. Filter LCZ 3, 6, 8 only
+lcz_order = [3, 6, 8]
+
+lst_suhi_zonal_built_up = lst_suhi_zonal_built_up[
+    lst_suhi_zonal_built_up['gridcode'].isin(lcz_order)
+].copy()
+
+lst_suhi_zonal_built_up['gridcode'] = pd.Categorical(
+    lst_suhi_zonal_built_up['gridcode'],
+    categories=lcz_order,
+    ordered=True
+)
+
+# 3. Full grid (LGA x LCZ)
+full_grid = pd.MultiIndex.from_product(
+    [lst_suhi_zonal_built_up['lga'].unique(), lcz_order],
+    names=['lga', 'gridcode']
+).to_frame(index=False)
+
+# 4. Prepare day/night datasets
+df_day = lst_suhi_zonal_built_up[['lga', 'gridcode', 'day_suhi']].rename(columns={'day_suhi':'value'}).copy()
+df_day['period'] = 'Daytime'
+
+df_night = lst_suhi_zonal_built_up[['lga', 'gridcode', 'night_suhi']].rename(columns={'night_suhi':'value'}).copy()
+df_night['period'] = 'Nighttime'
+
+# 5. Merge with full grid
+df_day = pd.merge(full_grid, df_day, on=['lga', 'gridcode'], how='left')
+df_night = pd.merge(full_grid, df_night, on=['lga', 'gridcode'], how='left')
+
+# 6. Clean invalid values
+df_day['value'] = df_day['value'].replace([np.inf, -np.inf], np.nan)
+df_night['value'] = df_night['value'].replace([np.inf, -np.inf], np.nan)
+
+# 7. Aggregate mean SUHII
+df_day_mean = df_day.groupby(['lga', 'gridcode'], as_index=False)['value'].mean()
+df_night_mean = df_night.groupby(['lga', 'gridcode'], as_index=False)['value'].mean()
+
+# 8. Plot settings
+vmin, vmax = 0, 4
+
+# 9. Combine heatmaps (side by side)
+fig, axes = plt.subplots(1, 2, figsize=(16, max(6, len(df_day_mean['lga'].unique())*0.5)))
+
+# Function to draw each heatmap
+def draw_heatmap(ax, data, title_label, show_yticks=True, show_cbar=True):
+    pivot = data.pivot_table(
+        index='lga',
+        columns='gridcode',
+        values='value',
+        aggfunc='mean'
+    )
+    pivot = pivot.reindex(columns=lcz_order)
+    pivot = pivot.reindex(index=sorted(pivot.index, reverse=True))
+    
+    sns.heatmap(
+        pivot,
+        annot=True,
+        fmt=".2f",
+        cmap="RdBu_r",
+        center=2,
+        vmin=vmin,
+        vmax=vmax,
+        mask=pivot.isna(),
+        cbar=show_cbar,
+        cbar_kws={'label':'SUHII (°C)'} if show_cbar else None,
+        linewidths=0.5,
+        linecolor='white',
+        ax=ax
+    )
+    
+    ax.set_title(title_label, fontsize=18, fontweight='bold', pad=10)
+    ax.set_xlabel('LCZ', fontsize=14, fontweight='bold')
+    if show_yticks:
+        ax.set_ylabel('LGA', fontsize=14, fontweight='bold')
+        ax.set_yticklabels(ax.get_yticklabels(), rotation=0, fontsize=12)
+    else:
+        ax.set_ylabel('')
+        ax.set_yticklabels([])
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=12)
+
+# Daytime (left, no legend)
+draw_heatmap(axes[0], df_day_mean, "Daytime", show_yticks=True, show_cbar=False)
+
+# Nighttime (right, with legend)
+draw_heatmap(axes[1], df_night_mean, "Nighttime", show_yticks=False, show_cbar=True)
+
+plt.tight_layout()
+
+# 10. Save combined figure
+plt.savefig(
+    "C:/Users/percy/Documents/studies/visual_studio_code/PhD-chapter3-SUHII/outputs/figures/day_night_lga_suhi_mean.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
+plt.show()
+plt.close()
+
+# 11. Debug checks
+print("Data shape after filtering:", lst_suhi_zonal_built_up.shape)
+print("Unique LCZs:", lst_suhi_zonal_built_up['gridcode'].unique())
+print("Day mean shape:", df_day_mean.shape)
+print("Night mean shape:", df_night_mean.shape)
