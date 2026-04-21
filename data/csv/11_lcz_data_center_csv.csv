@@ -1,0 +1,44 @@
+FID_data_c,data_id,name,company,address,latitude,longitude,active_year,cap_MW,observatio,Id,GRID_ID,hex_id,gridcode,area,study_area,lga,test
+41,42,Telstra Clayton,Telstra InfraCo,"1822 Dandenong Rd, 3168 Clayton",-37.91991,145.132687,2020,10,,13263,JG-203,13263,8,4.001502622,0,,0
+40,41,DXC Melbourne Data Center,DXC Technology,"4 Wesley Ct, VIC 3151 Burwood East",-37.857484,145.165134,2019,0,,24829,JU-171,24829,6,2.591329364,0,,0
+8,9,CDC Laverton Campus,CDC Data Centres,"Leakes Rd, VIC 3026 Laverton North",-37.844125,144.773147,2021,150,,26089,CS-167,26089,14,3.455997835,0,,1
+7,8,Amazon AWS MEL - 22 Delivery,Amazon AWS,"22 Delivery Dr, VIC 3029 Truganina",-37.838233,144.753507,0,0,,26802,CJ-165,26802,14,4.059399702,0,,1
+27,28,Epsilon DC,Epsilon DC,"55 Crockford St, Port Melbourne, 3207 Melbourne",-37.833983,144.948246,2019,0,,28337,FW-161,28337,1,2.302845569,0,,1
+26,27,Interactive Melbourne,Interactive Pty Ltd,"437 Williamstown Rd, 4307 Port Melbourne",-37.832585,144.935068,2018,0.03,,28692,FQ-160,28692,8,3.213560631,0,,1
+28,29,Hansen Tech - South Melbourne,Hansen Technologies,"127 York Street, South Melbourne, 3205 Melbourne",-37.831487,144.958149,2018,0.16,,29063,GA-159,29063,1,2.71667811,0,,1
+20,21,NEXTDC - M4 Melbourne,NEXTDC,"127 Todd Rd, VIC 3207 Port Melbourne",-37.828302,144.910084,0,150,,29402,FE-158,29402,8,3.954112427,0,,1
+25,26,NEXTDC - M1 Melbourne,NEXTDC,"826 Lorimer Street, 3207 Port Melbourne",-37.822634,144.932308,2018,16,,30495,FO-155,30495,8,4.059399702,0,,1
+24,25,NTT Port Melbourne,"NTT DATA, Inc.","840 Lorimer street, 3207 Port Melbourne",-37.822308,144.932282,2011,0,,30495,FO-155,30495,8,4.059399702,0,,1
+21,22,Equinix ME1,Equinix,"578 Lorimer Street, 3207 Port Melbourne",-37.821977,144.915989,2015,0,,30488,FH-155,30488,8,4.022371382,0,,1
+39,40,Vocus Data Centre - Mitcham,Vocus Communications,"28 Thornton Cres, 3132 Mitcham",-37.821484,145.187697,2015,0,,31698,KE-152,31698,8,3.423223853,0,,0
+13,14,Microsoft Cawley Road (MEL04),Microsoft,"20 Cawley Rd, VIC 3013 Yarraville",-37.821295,144.857545,2026,0,,30460,EF-155,30460,8,4.059398619,1,Maribyrnong,1
+31,32,Navicosoft,Navicosoft,"Level 23, Tower 5/727 Collins St, Docklands VIC 3008",-37.821009,144.95011,2008,0,,30864,FW-154,30864,8,1.81648785,0,,1
+37,38,Vocus Data Centre - Richmond,Vocus Communications,"180 Burnley St, 3043 Richmond",-37.820255,145.00764,2013,0,,31253,GY-153,31253,3,2.07264388,0,,1
+6,7,STACK Infrastructure MEL01A and MEL01B,STACK INFRASTRUCTURE,"399 Palmers Rd, 3029 Truganina",-37.819908,144.747805,2025,72,,30409,CG-155,30409,8,3.691491946,0,,1
+14,15,2-8 Cawley Road,Centuria,"2-8 Cawley Rd, 3013 Yarraville",-37.819838,144.860109,0,0,trees,30822,EG-154,30822,8,3.519045804,1,Maribyrnong,1
+29,30,Cloudverse IPXIDC,Cloudverse,"517 Flinders Lane, 3000 Melbourne",-37.819745,144.956581,0,0,,31229,GA-153,31229,1,4.059401577,0,,1
+30,31,ResetData AI Factory (AI-F1),ResetData,"818 Bourke St, VIC 3008 Docklands",-37.819271,144.943982,2025,1.5,,31223,FU-153,31223,1,2.185738703,0,,1
+32,33,Commander Data Centre,Primus Telecom / Commander,"55 King St, 3000 Melbourne",-37.819185,144.956716,2000,0,,31229,GA-153,31229,1,4.059401577,0,,1
+33,34,Melbourne Data Centre 5G Networks,5G Networks,"Level 15, 530 Collins Street, 3000 Melbourne",-37.817561,144.956721,2019,2,,31590,GA-152,31590,1,4.059399702,0,,1
+34,35,Vocus Data Centre - 530 Collins,Vocus Communications,"Level 3, 530 Collins Street, 3000 Melbourne",-37.817561,144.956721,2010,0,,31590,GA-152,31590,1,4.059399702,0,,1
+35,36,Melbourne Data Centre,Melbourne Data Centre Pty Ltd,"530 Collins Street, 3000 Melbourne",-37.817561,144.956721,0,0,,31590,GA-152,31590,1,4.059399702,0,,1
+36,37,530 Collins St,The GPT Group,"530 Collins Street, 3000 Melbourne",-37.817561,144.956721,0,0,,31590,GA-152,31590,1,4.059399702,0,,1
+12,13,CDC Brooklyn Campus One,CDC Data Centres,"594 Geelong Rd, VIC 3012 Brooklyn",-37.817291,144.844481,2026,150,,30815,DZ-154,30815,6,2.026460679,1,Brimbank,1
+2,3,Microsoft Woods Road,Microsoft,"281 Woods Rd, VIC 3029 Truganina",-37.809371,144.722505,2025,0,,32202,BU-150,32202,14,3.818424106,0,,1
+23,24,Equinix ME5,Equinix,"22-36 Walsh Street, 3003 West Melbourne",-37.807953,144.95344,2108,0,,33393,FY-147,33393,1,1.445344422,0,,1
+15,16,NEXTDC - M3 Melbourne,NEXTDC,"25 Indwe Street, 3012 West Footscray",-37.804246,144.865782,2026,0,,33352,EJ-147,33352,6,1.387439641,1,Maribyrnong,1
+16,17,1 McArthur Street / 63 Sunshine Rd,Perri Projects Pty Ltd,"63 Sunshine Rd, VIC 3012 West Footscray",-37.801578,144.869915,2025,0,,34076,EL-145,34076,8,3.270527337,1,Maribyrnong,1
+22,23,EscapeNet North Melbourne,EscapeNet,"222 Dryburgh St, 3051 North Melbourne",-37.801478,144.944061,0,0,,34472,FU-144,34472,3,4.059400494,0,,1
+11,12,Biztactix Sunshine DC,Biztactix,"9A Western Avenue, 3020 Sunshine",-37.800633,144.833061,2018,2,,34058,DT-145,34058,9,1.529181006,1,Brimbank,1
+9,10,Datacom@AirTrunk Melbourne,Datacom,"176 Swann Dr, 3026 Melbourne",-37.800207,144.773753,0,2,,34031,CS-145,34031,8,4.059398619,1,Brimbank,1
+10,11,Equinix ME4,Equinix,"2 Davis Ct, 3030 Derrimut",-37.788435,144.78587,2018,0.3,,36202,CX-139,36202,8,4.059400784,1,Brimbank,1
+38,39,Hansen Tech - Doncater,Hansen Technologies,"2 Frederick Street Doncater, 3108 Melbourne",-37.787693,145.12742,0,0,,37445,JB-136,37445,8,2.189090978,0,,0
+5,6,98 Radnor Dr (MEL10),Digital Realty,"98 Radnor Drive, 3023 Deer Park",-37.781894,144.779322,2013,0,,37282,CU-136,37282,8,3.270278663,1,Brimbank,1
+3,4,72 Radnor Drive (MEL11),Digital Realty,"72 Radnor Drive, 3023 Deer Park",-37.781768,144.777907,2013,0,,37281,CT-136,37281,8,3.491887871,1,Brimbank,1
+4,5,54 Radnor Dr (MEL12),Digital Realty,"54 Radnor Drive, 3023 Deer Park",-37.780924,144.775574,2013,0,,37641,CS-135,37641,8,3.946083687,1,Brimbank,1
+1,2,1 Oroya Drive,PGIM,"1 Oroya Dr, 3029 Truganina",-37.774968,144.673317,2023,0,,38315,AW-133,38315,14,4.059398619,0,,0
+17,18,NEXTDC - M2 Melbourne,NEXTDC,"75 Sharps Rd, 3043 Tullamarine",-37.708796,144.876051,2026,60,,51405,EM-97,51405,8,2.16714053,1,Brimbank,1
+18,19,Vantage MEL1 - Melbourne,Vantage Data Centers,"45 Tullamarine Park Rd, 3043 Tullamarine",-37.708035,144.872128,2024,48,2021,51403,EK-97,51403,8,3.708266573,1,Brimbank,1
+0,1,Amazon AWS - 54-80 Ferris Rd,Amazon AWS,"54-80 Ferris Rd, VIC 3338 Cobblebank",-37.701466,144.599874,2024,0,,51636,M-96,51636,14,4.050825105,0,,0
+19,20,Microsoft Garden Drive (MEL07),Microsoft,"70-90 Garden Drive, VIC 3043 Tullamarine",-37.686002,144.874574,2025,0,,55375,EL-86,55375,8,4.059399702,0,,1
+42,43,NEXTDC - Craigieburn,NEXTDC,"Brookville Drive, 3064 Craigieburn",-37.554838,144.947908,2026,0,,79956,FS-18,79956,12,2.762168925,0,,0
